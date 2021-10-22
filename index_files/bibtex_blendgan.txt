@@ -1,0 +1,6 @@
+@inproceedings{liu2021blendgan,
+	title = {BlendGAN: Implicitly GAN Blending for Arbitrary Stylized Face Generation},
+	author = {Liu, Mingcong and Li, Qiang and Qin, Zekui and Zhang, Guoxin and Wan, Pengfei and Zheng, Wen},
+	booktitle = {Advances in Neural Information Processing Systems},
+	year = {2021}
+}
