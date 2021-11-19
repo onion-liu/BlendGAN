@@ -84,15 +84,12 @@ License (MIT) https://github.com/eladrich/pixel2style2pixel/blob/master/LICENSE
 **Please Note**:
 
 - The CUDA files under the [StyleGAN2 ops directory](./op) are made available under the [Nvidia Source Code License-NC](https://nvlabs.github.io/stylegan2/license.html)
-
 - The face images under the [test_imgs](./test_imgs/face_imgs) directory are selected from the [FFHQ](https://github.com/NVlabs/ffhq-dataset) dataset, which is made available under [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license by NVIDIA Corporation.
-
 - The artistic images under the [test_imgs](./test_imgs/style_imgs) directory are collected from [Artstation](https://www.artstation.com), and the copyright remains with the original owners.
 
 
 ## Acknowledgements
 
 We sincerely thank all the reviewers for their comments. We also thank Zhenyu Guo for help in preparing the comparison to StarGANv2.
-
 This code borrows heavily from the pytorch re-implementation of StyleGAN2 by [rosinality](https://github.com/rosinality/stylegan2-pytorch).
 
