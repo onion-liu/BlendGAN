@@ -15,11 +15,8 @@ Abstract: *Generative Adversarial Networks (GANs) have made a dramatic leap in h
 
 :heavy_check_mark: (2021-11-19) Inference code and pretrained models have been released! 
 
-<center class="half">
-    <img src="https://user-images.githubusercontent.com/6346064/142623312-3e6f09aa-ce88-465c-b956-a8b4db95b4da.gif" width="330">
-    &nbsp;&nbsp;
-    <img src="https://user-images.githubusercontent.com/6346064/142621044-086cde48-8604-467b-8c43-8768b6670ec2.gif" width="330">
-</center>
+![000041](https://user-images.githubusercontent.com/6346064/142623312-3e6f09aa-ce88-465c-b956-a8b4db95b4da.gif)
+![000021](https://user-images.githubusercontent.com/6346064/142621044-086cde48-8604-467b-8c43-8768b6670ec2.gif)
 
 ## Pre-trained Models
 
