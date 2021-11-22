@@ -12,8 +12,10 @@ Y-tech, Kuaishou Technology
 Abstract: *Generative Adversarial Networks (GANs) have made a dramatic leap in high-fidelity image synthesis and stylized face generation. Recently, a layer-swapping mechanism has been developed to improve the stylization performance. However, this method is incapable of fitting arbitrary styles in a single model and requires hundreds of style-consistent training images for each style. To address the above issues, we propose BlendGAN for arbitrary stylized face generation by leveraging a flexible blending strategy and a generic artistic dataset. Specifically, we first train a self-supervised style encoder on the generic artistic dataset to extract the representations of arbitrary styles. In addition, a weighted blending module (WBM) is proposed to blend face and style representations implicitly and control the arbitrary stylization effect. By doing so, BlendGAN can gracefully fit arbitrary styles in a unified model while avoiding case-by-case preparation of style-consistent training images. To this end, we also present a novel large-scale artistic face dataset AAHQ. Extensive experiments demonstrate that BlendGAN outperforms state-of-the-art methods in terms of visual quality and style diversity for both latent-guided and reference-guided stylized face synthesis.*
 
 ### Updates
-:heavy_check_mark: (2021-11-19) a web demo is integrated to [Huggingface Spaces](https://huggingface.co/spaces) with [Gradio](https://github.com/gradio-app/gradio). See demo: [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/akhaliq/BlendGAN)
 
+:heavy_check_mark: (2021-11-22) add an interactive [demo](#Demo) based on Jupyter notebook
+
+:heavy_check_mark: (2021-11-19) a web demo is integrated to [Huggingface Spaces](https://huggingface.co/spaces) with [Gradio](https://github.com/gradio-app/gradio). See demo: [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/akhaliq/BlendGAN)
 
 :heavy_check_mark: (2021-11-19) Inference code and pretrained models have been released! 
 
@@ -31,6 +33,8 @@ You can download the following pretrained models to ./pretrained_models:
 | [style_encoder](https://drive.google.com/file/d/1EaM0ZYsAMdPkbRz0smLNIlJ1rxVAhbEz/view?usp=sharing) | Individual Style Encoder model (optional) |
 
 ## Inference
+
+*Note: If you dislike the deformation in the generated images, `add_weight_index=7` may be a better choice.*
 
 ### 1. Generate image pairs with random face codes
 
@@ -58,6 +62,13 @@ python style_transfer_folder.py --size 1024 --ckpt ./pretrained_models/blendgan.
 python gen_video.py --size 1024 --ckpt ./pretrained_models/blendgan.pt --psp_encoder_ckpt ./pretrained_models/psp_encoder.pt --style_img_path ./test_imgs/style_imgs/ --input_img_path ./test_imgs/face_imgs/ --outdir results/inter_videos/
 ```
 
+## Demo
+
+```bash
+jupyter notebook --notebook-dir=./
+```
+
+![demo](./index_files/demo.jpg)
 
 ## Bibtex
 If you use this code for your research, please cite our paper:
