@@ -28,9 +28,9 @@ class FeatureExtractor(nn.Module):
         https://discuss.pytorch.org/t/how-to-extract-features-of-an-image-from-a-trained-model/119/3
     """
 
-    def __init__(self):
+    def __init__(self, load_pretrained_vgg=True):
         super(FeatureExtractor, self).__init__()
-        self.vgg_layers = vgg.vgg19(pretrained=True).features
+        self.vgg_layers = vgg.vgg19(pretrained=load_pretrained_vgg).features
         self.layer_name_mapping = {
             '3': "relu1",
             '8': "relu2",
@@ -49,9 +49,9 @@ class FeatureExtractor(nn.Module):
 
 
 class StyleEmbedder(nn.Module):
-    def __init__(self):
+    def __init__(self, load_pretrained_vgg=True):
         super(StyleEmbedder, self).__init__()
-        self.feature_extractor = FeatureExtractor()
+        self.feature_extractor = FeatureExtractor(load_pretrained_vgg=load_pretrained_vgg)
         self.feature_extractor.eval()
         self.avg_pool = torch.nn.AdaptiveAvgPool2d((256, 256))
 
@@ -117,13 +117,14 @@ class StyleEncoder(nn.Module):
         self,
         style_dim=512,
         n_mlp=4,
+        load_pretrained_vgg=True,
     ):
         super().__init__()
 
         self.style_dim = style_dim
 
         e_dim = 610304
-        self.embedder = StyleEmbedder()
+        self.embedder = StyleEmbedder(load_pretrained_vgg=load_pretrained_vgg)
 
         layers = []
 

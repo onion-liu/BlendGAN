@@ -83,7 +83,7 @@ if __name__ == '__main__':
     print('truncation: ', args.truncation)
 
     g_ema = Generator(
-        args.size, args.latent, args.n_mlp, channel_multiplier=args.channel_multiplier
+        args.size, args.latent, args.n_mlp, channel_multiplier=args.channel_multiplier, load_pretrained_vgg=False
     ).to(device)
     g_ema.load_state_dict(model_dict)
 

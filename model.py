@@ -370,6 +370,7 @@ class Generator(nn.Module):
         channel_multiplier=2,
         blur_kernel=[1, 3, 3, 1],
         lr_mlp=0.01,
+        load_pretrained_vgg=True,
     ):
         super().__init__()
 
@@ -377,7 +378,7 @@ class Generator(nn.Module):
 
         self.style_dim = style_dim
 
-        self.embedder = StyleEncoder(style_dim=512, n_mlp=4)
+        self.embedder = StyleEncoder(style_dim=512, n_mlp=4, load_pretrained_vgg=load_pretrained_vgg)
 
         layers = [PixelNorm()]
 
