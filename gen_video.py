@@ -96,8 +96,7 @@ def interpolate(args, g, sample_in, sample_style_prev, sample_style_next):
 
 
 @torch.no_grad()
-def video_ref(args, g, psp_encoder, img_in_ten, img_style_tens):
-    video = []
+def video_ref(args, g, psp_encoder, img_in_ten, img_style_tens, videoWriter):
     sample_in = psp_encoder(img_in_ten)
 
     img_style_ten_prev, sample_style_prev = None, None
@@ -113,31 +112,15 @@ def video_ref(args, g, psp_encoder, img_in_ten, img_style_tens):
         entries = [img_style_ten_prev, img_style_ten_next]
         slided = slide_one_window(entries, margin=0)     # [T, C, H, W)
         frames = torch.cat([img_in_ten.expand_as(interpolated), slided, interpolated], dim=3).cpu()   # [T, C, H, W*3)
-        video.append(frames)
+        frames = tensor2ndarray255(frames)  # [T, H, W*3, C)
+        for frame_idx in range(frames.shape[0]):
+            frame = frames[frame_idx]
+            videoWriter.write(frame[:, :, ::-1])
         img_style_ten_prev, sample_style_prev = img_style_ten_next, sample_style_next
 
     # append last frame 10 time
     for _ in range(10):
-        video.append(frames[-1:])
-    video = tensor2ndarray255(torch.cat(video))   # [T, H, W*3, C)
-
-    return video
-
-
-def save_video(fname, images, output_fps=30):
-    print('save video to: %s' % fname)
-
-    assert isinstance(images, np.ndarray), "images should be np.array: NHWC"
-    num_frames, height, width, channels = images.shape
-
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    videoWriter = cv2.VideoWriter(fname, fourcc, output_fps, (width, height))
-
-    for idx in tqdm(range(num_frames)):
-        frame = images[idx][:, :, ::-1]  # [H, W*3, C)
-        videoWriter.write(frame)
-
-    videoWriter.release()
+        videoWriter.write(frame[:, :, ::-1])
 
 
 if __name__ == '__main__':
@@ -176,6 +159,8 @@ if __name__ == '__main__':
     g_ema.load_state_dict(model_dict)
     g_ema.eval()
 
+    del checkpoint, model_dict
+
     psp_encoder = PSPEncoder(args.psp_encoder_ckpt, output_size=args.size).to(device)
     psp_encoder.eval()
 
@@ -202,9 +187,11 @@ if __name__ == '__main__':
             img_style_tens.append(img_style_ten)
 
         fname = f'{args.outdir}/{name_in}.mp4'
-        video = video_ref(args, g_ema, psp_encoder, img_in_ten, img_style_tens)
-
-        save_video(fname, video, output_fps=30)
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        videoWriter = cv2.VideoWriter(fname, fourcc, 30, (args.size * 3, args.size))
+        video_ref(args, g_ema, psp_encoder, img_in_ten, img_style_tens, videoWriter)
+        videoWriter.release()
+        print('save video to: %s' % fname)
 
     print('Done!')
 
