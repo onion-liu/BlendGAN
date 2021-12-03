@@ -13,6 +13,8 @@ Abstract: *Generative Adversarial Networks (GANs) have made a dramatic leap in h
 
 ### Updates
 
+:heavy_check_mark: (2021-12-03) The [AAHQ](https://github.com/onion-liu/aahq-dataset) dataset has been released!
+
 :heavy_check_mark: (2021-11-22) add an interactive [demo](#Demo) based on Jupyter notebook
 
 :heavy_check_mark: (2021-11-19) a web demo is integrated to [Huggingface Spaces](https://huggingface.co/spaces) with [Gradio](https://github.com/gradio-app/gradio). See demo: [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/akhaliq/BlendGAN)
