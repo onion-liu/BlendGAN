@@ -1,0 +1,20 @@
+build:
+  gpu: true
+  python_version: "3.8"
+  system_packages:
+    - "libgl1-mesa-glx"
+    - "libglib2.0-0"
+    - "ninja-build"
+  python_packages:
+    - "ipython==7.21.0"
+    - "torch==1.7.1"
+    - "torchvision==0.8.2"
+    - "numpy==1.19.4"
+    - "tqdm==4.54.1"
+    - "opencv-python==4.4.0.46"
+    - "scipy==1.7.2"
+    - "cmake==3.22.0"
+  run:
+    - pip install dlib
+
+predict: "predict.py:Predictor"
