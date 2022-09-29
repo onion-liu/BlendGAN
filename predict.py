@@ -4,14 +4,15 @@ import cv2
 import random
 import numpy as np
 from pathlib import Path
-import cog
+from cog import BasePredictor, Path, Input
+
 from ffhq_dataset.gen_aligned_image import FaceAlign
 from model import Generator
 from psp_encoder.psp_encoders import PSPEncoder
 from utils import ten2cv, cv2ten
 
 
-class Predictor(cog.Predictor):
+class Predictor(BasePredictor):
     def setup(self):
         size = 1024
         latent = 512
@@ -27,17 +28,15 @@ class Predictor(cog.Predictor):
         self.psp_encoder.eval()
         self.fa = FaceAlign()
 
-    @cog.input(
-        "source",
-        type=Path,
-        help="source facial image, it will be aligned and resized to 1024x1024 first",
-    )
-    @cog.input(
-        "style",
-        type=Path,
-        help="style reference facial image, it will be aligned and resized to 1024x1024 first",
-    )
-    def predict(self, source, style):
+    def predict(
+            self,
+            source: Path = Input(
+                description="source facial image, it will be aligned and resized to 1024x1024 first",
+            ),
+            style: Path = Input(
+                description="style reference facial image, it will be aligned and resized to 1024x1024 first",
+            ),
+    ) -> Path:
         seed = 0
         random.seed(seed)
         np.random.seed(seed)
